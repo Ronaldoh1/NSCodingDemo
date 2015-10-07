@@ -30,6 +30,15 @@
     NSURL *documentDirectory = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
     NSURL *saveFile = [documentDirectory URLByAppendingPathComponent:@"library.bin"];
 
+    NSData *libraryData = [NSData dataWithContentsOfURL:saveFile options:NSDataReadingMappedIfSafe error:nil];
+    self.library = [NSKeyedUnarchiver unarchiveObjectWithData:libraryData];
+
+    for (RWTBook *book in self.library.books){
+        NSLog(@"book: %@", book);
+        NSLog(@"author: %@", book.author);
+        NSLog(@"-----------");
+    }
+
 //    NSData *libaryData =[NSKeyedArchiver archivedDataWithRootObject:self.library];
 //
 //    //write out to disk
